@@ -21,8 +21,12 @@
           <NamedContainer
             label="child"
             class="child-box"
-            v-for="index of childElements"
+            v-for="{ index, width, height } of children"
             :key="index"
+            :style="{
+              width,
+              height,
+            }"
           >
             <p>Child {{ index }}</p>
           </NamedContainer>
@@ -34,8 +38,12 @@
           <NamedContainer
             label="child"
             class="child-box"
-            v-for="index of childElements"
+            v-for="{ index, width, height } of children"
             :key="index"
+            :style="{
+              width,
+              height,
+            }"
           >
             <p>Child {{ index }}</p>
           </NamedContainer>
@@ -51,29 +59,48 @@ import { DisplayTypes } from './DisplaySelector.vue'
 import { FlexDirection } from './FlexDirection.vue'
 import { computed } from 'vue'
 import NamedContainer from './NamedContainer.vue'
+import { AlignType } from './AlignSelector.vue'
+import { JustifyType } from './JustifySelector.vue'
 
 const props = defineProps<{
   display: {
     displayType: DisplayTypes
     elementCount: number
-    flexDirection: FlexDirection
+    randomFactor: number
     gap: number
+    flexDirection: FlexDirection
+    align: AlignType
+    justify: JustifyType
     columnCount: number
   }
 }>()
 
-const childElements = computed(() =>
-  Array.apply(null, Array(props.display.elementCount)).map(function (y, i) {
-    return i
-  }),
-)
-
 const displayType = computed(() => props.display.displayType)
 
 const gap = computed(() => `${props.display.gap * 4}px`)
+
 const flexDirection = computed(() => props.display.flexDirection)
+const justifyContent = computed(() => props.display.justify)
+const alignItems = computed(() => props.display.align)
+
 const columnCount = computed(() => props.display.columnCount)
 const rowCount = computed(() => props.display.rowCount)
+
+const getSize = () => {
+  return 100 + Math.random() * props.display.randomFactor
+}
+
+const children = computed(() => {
+  return Array.apply(null, Array(props.display.elementCount)).map(
+    function (y, i) {
+      return {
+        index: i,
+        width: `${getSize()}px`,
+        height: `${getSize()}px`,
+      }
+    },
+  )
+})
 </script>
 
 <style lang="scss" scoped>
@@ -100,12 +127,15 @@ const rowCount = computed(() => props.display.rowCount)
   gap: v-bind(gap);
   flex-direction: v-bind(flexDirection);
   flex-wrap: wrap;
+  justify-content: v-bind(justifyContent);
+  align-items: v-bind(alignItems);
 }
 
 .display-box-grid {
   display: v-bind(displayType);
   gap: v-bind(gap);
   grid-template-columns: repeat(v-bind(columnCount), 1fr);
+  //grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .child-box {

@@ -19,6 +19,8 @@
 <script lang="ts" setup>
 import Card from './Card.vue'
 import { computed } from 'vue'
+import { AlignType } from './AlignSelector.vue'
+import { JustifyType } from './JustifySelector.vue'
 
 const props = defineProps<{
   display: {
@@ -26,22 +28,34 @@ const props = defineProps<{
     elementCount: number
     flexDirection: FlexDirection
     gap: number
+    align: AlignType
+    justify: JustifyType
     columnCount: number
   }
 }>()
 
 const flexCode = computed(() => {
   return `
+// Raw CSS
 .display-box {
   display: flex;
   flex: ${props.display.flexDirection};
   gap: ${props.display.gap * 4}px;
+  justify-content: ${props.display.justify};
+  align-items: ${props.display.align};
 }
+
+// Hermes class list
+flex-${props.display.flexDirection.replace('column', 'col')}
+gap-${props.display.gap}
+justify-${props.display.justify.replace('flex-', '').replace('space-', '')}
+align-${props.display.align.replace('flex-', '')}
   `
 })
 
 const gridCode = computed(() => {
   return `
+// Raw CSS
 .display-box {
   display: grid;
   gap: ${props.display.gap * 4}px;

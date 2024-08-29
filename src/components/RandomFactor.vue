@@ -1,19 +1,19 @@
 <template>
   <Card>
     <div class="flex-col gap-1">
-      <h3>Columns</h3>
+      <h3>Gap</h3>
 
       <hr class="w-full" />
 
       <div class="flex-row gap-1 w-full">
-        <label for="columnCount">Columns</label>
+        <label for="random-factor">Random Factor</label>
         <input
           class="flex-1"
-          v-model="columnCount"
-          id="columnCount"
+          v-model="randomFactor"
+          id="random-factor"
           type="number"
           min="0"
-          max="50"
+          max="200"
         />
       </div>
     </div>
@@ -28,5 +28,5 @@ const props = defineProps<{
   modelValue: number
 }>()
 
-const columnCount = useVModel(props, 'modelValue')
+const randomFactor = useVModel(props, 'modelValue')
 </script>
