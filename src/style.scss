@@ -13,6 +13,10 @@ h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
 
+p {
+  line-height: 1;
+}
+
 hr {
   height: 0;
   width: 100%;
@@ -42,7 +46,7 @@ body {
 }
 
 
-@for $i from 1 through 12 {
+@for $i from 1 through 50 {
   .gap-#{$i} {
     gap: $i * 4px;
   }
@@ -90,4 +94,8 @@ body {
 
 .h-full {
   height: 100%;
+}
+
+.flex-1 {
+  flex: 1;
 }

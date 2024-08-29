@@ -1,11 +1,15 @@
 <template>
-  <Card class="controls">
+  <Card>
     <div class="flex-col gap-1">
       <h3>Display Type</h3>
 
       <hr class="w-full" />
 
       <div class="flex-col gap-2">
+        <div class="flex-row gap-2 align-center">
+          <input type="radio" id="flow" value="flow" v-model="pickedDisplay" />
+          <label for="flow">Flow</label>
+        </div>
         <div class="flex-row gap-2 align-center">
           <input
             type="radio"
@@ -43,7 +47,7 @@
 import Card from './Card.vue'
 import { useVModel } from '@vueuse/core'
 
-export type DisplayTypes = 'block' | 'inline' | 'inline-block' | 'flex' | 'grid'
+export type DisplayTypes = 'flow' | 'block' | 'inline' | 'flex' | 'grid'
 
 const props = defineProps<{
   modelValue: DisplayTypes
@@ -51,9 +55,3 @@ const props = defineProps<{
 
 const pickedDisplay = useVModel(props, 'modelValue')
 </script>
-
-<style lang="scss" scoped>
-.controls {
-  width: 300px;
-}
-</style>
