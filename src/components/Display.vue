@@ -5,16 +5,12 @@
 
       <hr class="w-full" />
 
-      <p
-        v-if="
-          displayType === 'flow' ||
-          displayType === 'block' ||
-          displayType === 'inline'
-        "
-      >
-        The quick brown fox <span class="text-child">jumps</span>
-        <span class="text-child">over</span> the lazy dog
-      </p>
+      <div v-if="displayType === 'block' || displayType === 'inline'">
+        <p class="text-child">The quick brown fox</p>
+        <p class="text-child">jumps</p>
+        <p class="text-child">over</p>
+        <p class="text-child">the lazy dog</p>
+      </div>
 
       <NamedContainer v-else-if="displayType === 'flex'" label="display-box">
         <div class="display-box-flex">

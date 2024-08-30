@@ -46,7 +46,7 @@ import ElementCountEditor from './components/ElementCountEditor.vue'
 import AlignSelector, { AlignType } from './components/AlignSelector.vue'
 import JustifySelector, { JustifyType } from './components/JustifySelector.vue'
 
-const displayType = ref<DisplayTypes>('flow')
+const displayType = ref<DisplayTypes>('block')
 const elementCount = ref<number>(10)
 const gap = ref<number>(2)
 
